@@ -66,15 +66,15 @@ function showMenu() {
     let choice;
     do {
         choice = prompt(
-            "меню:\n1. Добавить товар\n2. Добавить в корзину\n3. Удалить из корзины\n4. Итоговая стоимость\n5. Выход"
+            "меню:\n1. добавить товар\n2. добавить в корзину\n3. удалить из корзины\n4. итоговая стоимость\n5. выход"
         );
         switch (choice) {
             case '1': addProduct(); break;
             case '2': addToCart(); break;
             case '3': removeFromCart(); break;
             case '4': totalCost(); break;
-            case '5': alert('Выход'); break;
-            default: alert('Неверный пункт');
+            case '5': alert('выход'); break;
+            default: alert('неверный пункт');
         }
     } while (choice !== '5');
 }

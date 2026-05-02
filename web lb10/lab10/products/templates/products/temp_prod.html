@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>продукты</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">список</h1>
+    <table>
+        <tr>
+            <th>название</th>
+            <th>вес в гр</th>
+            <th>цена в руб</th>
+            <th>категория</th>
+            <th>аллергены</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.weight }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.get_category_display }}</td>
+            <td>{% if product.has_allergens %}да{% else %}нет{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td style="text-align: center;">продуктов нет</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p style="text-align: center;">
+        <a href="{% url 'product_add' %}">добавить продукт</a>
+    </p>
+</body>
+</html>

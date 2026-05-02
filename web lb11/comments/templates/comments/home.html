@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Комментарии</title>
+</head>
+<body>
+    <h1>Время: <span id="time"></span> <button onclick="updateTime()">Обновить</button></h1>
+
+    <table id="table" border="1">
+        <tr><th>Время</th><th>Текст</th></tr>
+    </table>
+
+    <form onsubmit="sendComment(event)">
+        <input type="text" id="text" maxlength="20">
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+    async function updateTime() {
+        const r = await fetch('/time/');
+        const d = await r.json();
+        document.getElementById('time').textContent = d.time;
+    }
+
+    async function loadComments() {
+        const r = await fetch('/comment/');
+        const d = await r.json();
+        const t = document.getElementById('table');
+        t.innerHTML = '<tr><th>Время</th><th>Текст</th></tr>';
+        d.forEach(c => {
+            t.innerHTML += `<tr><td>${c.time}</td><td>${c.text}</td></tr>`;
+        });
+    }
+
+    async function sendComment(e) {
+        e.preventDefault();
+        await updateTime();
+        const time = document.getElementById('time').textContent;
+        const text = document.getElementById('text').value;
+        await fetch('/comment/save/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({time, text})
+        });
+        loadComments();
+    }
+
+    updateTime();
+    loadComments();
+    </script>
+</body>
+</html>

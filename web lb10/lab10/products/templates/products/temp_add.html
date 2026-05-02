@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>добавить</title>
+    <style>
+        .errorlist {
+            color: red;
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>добавление продукта</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <p>
+            <label for="{{ form.name.id_for_label }}">название:</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </p>
+        <p>
+            <label for="{{ form.weight.id_for_label }}">вес в гр:</label>
+            {{ form.weight }}
+            {{ form.weight.errors }}
+        </p>
+        <p>
+            <label for="{{ form.price.id_for_label }}">цена в руб:</label>
+            {{ form.price }}
+            {{ form.price.errors }}
+        </p>
+        <p>
+            <label for="{{ form.category.id_for_label }}">категория:</label>
+            {{ form.category }}
+            {{ form.category.errors }}
+        </p>
+        <p>
+            <label for="{{ form.has_allergens.id_for_label }}">наличие аллергенов:</label>
+            {{ form.has_allergens }}
+            {{ form.has_allergens.errors }}
+        </p>
+        <button type="submit">сохранить</button>
+    </form>
+    <p><a href="{% url 'product_list' %}">вернуться к списку</a></p>
+</body>
+</html>
